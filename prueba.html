@@ -1,0 +1,134 @@
+<style>
+  body {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+  }
+  </style>
+  
+  <div id='conatiner'>
+    <div id='app'>
+      <form>
+          <label for='txtDato'>
+          Dato:<input type='text' id='txtDato'>
+        </label><br>
+        <button type='button' id='btnAdd'>Add</button>
+      </form>  
+    </div>
+  </div>
+  <div id='detalles'>
+   
+  </div>
+  <script>
+  // You can use the console window at the bottom
+  class Persona{
+    constructor(dato){
+      this.dato=dato;
+    }
+    info(){
+      return "la información es " + this.dato;
+    }
+    infoHTML(){
+      return `<section>
+          <div>
+              <p>La info es</p>
+                  <p>${this.dato}</p>
+          </div>
+      </section>`;
+    }
+  }
+   
+  class Grupo{
+    constructor(){
+      this.datos=new Array();
+    }
+    agregar(nuevo){
+      this.datos.push(nuevo)
+    }
+    buscar(id){
+      let pos=null;
+      for(let i=0;(i<this.datos.length) && pos==null;i++)
+        if (this.datos[i].dato==id)
+          pos = this.datos[i];
+      return pos;
+    }
+    _buscarPos(id){
+      let pos=-1;
+      for(let i=0;(i<this.datos.length) && pos==-1;i++)
+        if (this.datos[i].dato==id)
+          pos = i;
+      return pos;
+    }
+  
+    eliminar(id){
+      let pos=_buscarPos(id);
+      if (pos>-1){
+          for (let i=pos; i<this.datos.length-1;i++)
+             this.datos[i]=this.datos[i+1]
+          return this.datos.pop()
+      }
+      else
+          return null
+    }
+    listar(){
+      return 'cantidad de elementos html';
+    }
+  }
+   
+   
+    //interacción con usuarios
+    /*
+    let g3g=new Grupo();
+    let p=new Persona('a');
+    g3g.agregar(p);
+    p=new Persona('n');
+    g3g.agregar(p);
+    g3g.agregar(new Persona('f'));
+    let buscado=g3g.buscar('n');
+    if (buscado==null)
+      console.log('no existe');
+    else
+      console.log(buscado.info());
+    console.log(g3g.listar());
+    */
+   
+    class Interfaz{
+      agregarPersona(nueva){
+        //let objeto=document.getElementById('detalles');
+        let detalles=document.getElementById('detalles');
+        detalles.innerHTML += nueva.infoHTML();
+      }
+      
+    }
+   
+   
+    //interacción   app.js
+    let g3=new Grupo();
+    let ui=new Interfaz()
+    const btnAdd=document.getElementById('btnAdd');
+    btnAdd.addEventListener('click',()=>{
+      //recuperar todos los datos del HTML
+      let dato=document.getElementById('txtDato').value;
+      let persona=new Persona(dato);
+        g3.agregar(persona);
+      //10 o 12 lineas  de puro control del DOM
+      ui.agregarPersona(persona);
+      
+    });
+   
+   
+   
+  /*
+    a=a+1;
+   
+    a++;
+    a.push(null)
+    [producto  , {} ,{}  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,{} ]
+   0  1  2  3  4  5  6  7  8  9
+  [a][b][h][z][j][i][o][p][r][e][w]
+   g3g.insertar(new Persona('z',3);
+  [10]=[9]
+  [9]=[8]
+  ....
+  [4]=[3]
+  [3]=nuevo
+  */
+  </script>
