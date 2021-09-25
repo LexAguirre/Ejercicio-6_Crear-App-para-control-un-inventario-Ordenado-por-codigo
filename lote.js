@@ -37,7 +37,7 @@ export default class inventory{
 
             this.intercambioDeElementos(this.inventario, this.inventario.length-1, position);
                 for (let i = this.inventario.length - 1, j = this.inventario.length - 2; i >= position + 1 && j >= position + 1; i--, j--) {
-
+                    console.log(position)
                     this.intercambioDeElementos(this.inventario, j, i)
                 }
         }
@@ -66,7 +66,7 @@ export default class inventory{
 
         console.log(this.inventario)
     }
-
+//Gracias por la ayuda profe ^_^
     listar() {
         let datos = "";
         if(this.inventario.length === 0){
