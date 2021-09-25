@@ -8,28 +8,26 @@ export default class inventory{
     }
 
     agregar(nuevo){
-        if(this.inventario.length === 20){
+        if(this.inventario.length -1 === 20){
             return "lleno";
         } else if(this.inventario.length < 20){
             this.insertarEnPosicionOrdenada(nuevo);
-            console.log(this.insertarEnPosicionOrdenada(nuevo))
             console.log(this.inventario);
         }
     }
 
     buscarPosicionOrdenada(codigo){
         for(let i = 0; i < this.inventario.length; i++) {
-            if (codigo < this.inventario[i].codigo) {
-                return i;
-            } else if (codigo == this.inventario[i].codigo) {
+            if (codigo == this.inventario[i].codigo) {
                 return "Codigo Existente";
+            } else if (codigo < this.inventario[i].codigo) {
+                return i;
             }
         }
     }
  
     insertarEnPosicionOrdenada(nuevo){
         let position = this.buscarPosicionOrdenada(nuevo.get_Codigo());
-        console.log(nuevo.get_Codigo());
         console.log(position);
     
         if(position === "Codigo Existente"){
@@ -70,37 +68,32 @@ export default class inventory{
     }
 
     listar() {
+        let datos = "";
         if(this.inventario.length === 0){
             return "vacio";
         } else {
             for(let i=0; i<this.inventario.length; i++){
-            return `Elemento Num.${i + 1}: Codigo ${this.inventario[i].codigo} Nombre ${this.inventario[i].nombre}`;
-        }
+                datos += `<p>Elemento Num.${i + 1}: Codigo ${this.inventario[i].codigo} Nombre ${this.inventario[i].nombre}<p>`;
+            }
+
+            return datos;
         }  
     }    
 
     listarReverso() {
+        let datos = "";
         if(this.inventario.length === 0){
             return "vacio";
         } else {
             for(let i = this.inventario.length -1; i >= 0 ; i--){
-                return `Elemento Num.${i + 1}: Codigo ${this.inventario[i].codigo} Nombre ${this.inventario[i].nombre}`
-            }}  
+                datos += `<p>Elemento Num.${i + 1}: Codigo ${this.inventario[i].codigo} Nombre ${this.inventario[i].nombre}<p>`
+                
+            }
+            return datos;
+        }  
     }    
 
     intercambioDeElementos(datos, i = 0, j = datos.length -1){
         [datos[i], datos[j]] = [datos[j], datos[i]];
     }
-/*
-    comprovar(codigo){
-        let posicion = 0;
-
-        for(let i = 0; i < this.inventario.length; i++) {
-            if (this.inventario[i] === codigo) {
-                console.log(i)
-                return posicion = i;
-            } 
-        }
-    }
-*/
 }
